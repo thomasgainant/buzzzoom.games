@@ -1,0 +1,20 @@
+<script type="text/javascript">
+	{{games}}
+
+	function postLoad(){
+		var jeuxElement = document.querySelector("#jeux .jeux-mosaique");
+		for(var i = 0; i < games.length; i++){
+			jeuxElement.innerHTML += "<div class=\"jeu\"><a href=\"/jeu/"+games[i].shortName+"\"><img src=\"img/"+games[i].shortName+".png\"/><h3>"+games[i].name+"</h3></a></div>";
+		}
+	};
+
+	function postConnect(){
+
+	};
+</script>
+
+<div id="jeux" class="default-margin">
+	<h2 class="titre">Nos jeux</h2>
+	<div class="jeux-mosaique">
+	</div>
+</div>

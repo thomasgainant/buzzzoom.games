@@ -1,0 +1,176 @@
+<script type="text/javascript">
+	{{contest}}
+
+	var scores = [{{scores}}];
+
+	var scoresContest = [{{scoresContest}}];
+
+	var gameDescription = "{{gameDescription}}";
+
+	var canvas;
+
+	function postLoad(){
+		var userNameCookie = Cookies.get('userName');
+		var userPwdCookie = Cookies.get('userPwd');
+		//Currently connecting
+		if(userNameCookie != null && userNameCookie != "" && userPwdCookie != null && userPwdCookie != ""){
+			
+		}
+		//Anonymous user
+		else{
+			if(contest != null){
+				var noMoreCreditsPopup = popup(
+					"<p>Vous n'êtes pas connecté à un compte utilisateur. Cela signifie que votre score pour ce concours ne sera pas validé tant que vous ne vous serez pas <a href=\"/inscription\">inscrit</a> sur notre site.</p><p>Votre participation à ce concours ne sera valide que si vous revenez sur cette page après vous êtes connecté à votre compte utilisateur, ou si vous vous inscrivez à la fin de votre partie (un message d'avertissement apparaitra pour suivre cette procédure).</p><p>De plus, en cliquant sur \"Jouer\" vous acceptez le règlement du concours.</p>",
+					function(popupElement){
+						
+					},
+					"<h3>Score du concours non-publié</h3>"
+				);
+			}
+			else{
+				var noMoreCreditsPopup = popup(
+					"<p>Vous n'êtes pas connecté à un compte utilisateur. Cela signifie que vos scores ne seront pas publiés sur notre site et que votre nombre de parties jouables est restreint. Connectez-vous à votre compte utilisateur ou <a href=\"/inscription\">inscrivez-vous</a> sur notre site pour pouvoir garder vos scores et jouer plus longtemps.</p>",
+					function(popupElement){
+						
+					},
+					"<h3>Scores non-publiés</h3>"
+				);
+			}
+		}
+
+		var descriptionElement = document.querySelector("#description");
+		descriptionElement.innerHTML = gameDescription;
+
+		var scoresElement = document.querySelector("#scores");
+		var tableScores = scoresElement.querySelector(".table-scores");
+		if(scores.length == 0){
+			tableScores.innerHTML += "<tr><td>-</td><td>-</td><td>-</td></tr>";
+		}
+		else{
+			for(var i = 0; i < scores.length && i < 100; i++){
+				var scoreDate = new Date(scores[i].dateCreated);
+				var scoreDateStr = scoreDate.getDate()+"/"+(scoreDate.getMonth()+1)+"/"+scoreDate.getFullYear()+" "+scoreDate.getHours()+":"+scoreDate.getMinutes()+":"+scoreDate.getSeconds();
+				var concoursStr = "-";
+				if(scores[i].contestShortName == "YES"){//TODO get short name and link to contest page
+					concoursStr = "Oui";
+				}
+				tableScores.innerHTML += "<tr><td>"+scores[i].playerName+"</td><td>"+scores[i].value+"</td><td>"+scoreDateStr+"</td><td>"+concoursStr+"</td></tr>";
+			}
+		}
+
+		var concoursScoresElement = document.querySelector("#concours-scores");
+		if(scoresContest.length == 0){
+			concoursScoresElement.parentElement.removeChild(concoursScoresElement);
+		}
+		else{
+			var concoursTableScores = concoursScoresElement.querySelector(".table-scores");
+			for(var i = 0; i < scoresContest.length && i < 100; i++){
+				var scoreDate = new Date(scoresContest[i].dateCreated);
+				var scoreDateStr = scoreDate.getDate()+"/"+(scoreDate.getMonth()+1)+"/"+scoreDate.getFullYear()+" "+scoreDate.getHours()+":"+scoreDate.getMinutes()+":"+scoreDate.getSeconds();
+				concoursTableScores.innerHTML += "<tr><td>"+scoresContest[i].playerName+"</td><td>"+scoresContest[i].value+"</td><td>"+scoreDateStr+"</td></tr>";
+			}
+		}
+	};
+
+	function postConnect(){
+		if(contest != null){
+			socket.emit('afficherJeu', JSON.stringify({contest: ""+contest, userName: ""+socket.userName, userPwd: ""+socket.userPwd}));
+
+			socket.on('afficherJeu', function(result) {
+				if(result == "noPostal"){
+					var noPostalPopup = popup(
+						"<p>Vous n'avez pas rentré votre adresse postale sur votre profil avant de participer au concours.</p><p>Il est nécessaire de rentrer son adresse postale pour participer à un concours sur Buzzzoom. En effet, comment pourrions-nous vous envoyer votre lot si vous gagnez ? :o)<br/>De plus, la participation à un concours est limitée à une seule par foyer résidant en France Métropolitaine.</p><p>Pour rentrer votre adresse postale, rendez-vous sur votre <a href=\"/profil\">profil</a>.</p>",
+						function(popupElement){
+							
+						},
+						"<h3>Aucune adresse postale sur ce compte</h3>"
+					);
+				}
+				else if(result == "already"){
+					var alreadyPopup = popup(
+						"<p>Vous avez déjà participé à ce concours.</p><p>Les participations à un concours sont limitées à une seule par foyer résidant en France Métropolitaine et donc à une seule par compte utilisateur.</p><p>Vous pouvez toutefois vous entrainer pour les prochains <a href=\"/concours\">concours</a>.</p>",
+						function(popupElement){
+							
+						},
+						"<h3>Participation déjà enregistrée pour ce concours</h3>"
+					);
+				}
+				else{
+					var alreadyPopup = popup(
+						"<p>En cliquant sur le bouton \"Jouer\" vous êtes considéré comme ayant lu <a href=\"/reglement/"+contest.shortName+"\">le règlement du concours</a>, vous acceptez ce règlement et votre participation est considérée comme active. Fermez cette fenêtre et cliquez sur \"Jouer\" si vous êtes d'accord.</p>",
+						function(popupElement){
+							
+						},
+						"<h3>Acceptation du règlement</h3>"
+					);
+				}
+			});
+		}
+		else{
+			if(socket.userCredits  == 0){
+				var noMoreCreditsPopup = popup(
+					"<p>Vous n'avez plus assez de crédits pour pouvoir jouer à ce jeu ! Vous pouvez obtenir plus de crédits en revenant demain à la même heure ou en visitant <a href=\"/profil\">votre page de profil</a>.</p>",
+					function(popupElement){
+						
+					},
+					"<h3>Crédits manquants</h3>"
+				);
+
+				canvas = document.querySelector("canvas.emscripten");
+
+				var newHideLayer = document.createElement("div");
+				newHideLayer.className = "overlay hide-layer";
+				newHideLayer.innerHTML = "<h3>Crédits manquants !</h3><p>Rendez-vous sur <a href=\"/profil\">votre page de profil</a> ou revenez demain à la même heure !</p>";
+				document.body.appendChild(newHideLayer);
+				newHideLayer.style.top = parseInt(canvas.offsetTop)+"px";
+				newHideLayer.style.left = parseInt(canvas.offsetLeft)+"px";
+				newHideLayer.style.height = parseInt(canvas.getAttribute("height"))+"px";
+				newHideLayer.style.width = parseInt(canvas.getAttribute("width"))+"px";
+			}
+		}
+	};
+
+	function displayRegisterAfterAnonymousScore(){
+		if(contest != null){
+			var registerPopup = popup(
+				"<p>Vous n'êtes pas connecté à un compte utilisateur. Cela signifie que votre participation pour ce concours ne sera pas validé tant que vous ne vous serez pas inscrit sur notre site.</p><p>Pour vous inscrire et valider votre score et votre participation, cliquez sur le lien suivant :</p><p><a href=\"/inscription-concours\" class=\"button\">Je m'inscris</a></p>",
+				function(popupElement){
+					
+				},
+				"<h3>Score du concours non-validé</h3>"
+			);
+		}
+	}
+</script>
+
+<div id="jeu">{{code}}</div>
+
+<div id="description"></div>
+
+<div id="scores">
+	<div class="wrapper default-margin">
+		<h3>Meilleurs scores du jeu</h3>
+		<table class="table-scores">
+			<tr>
+				<th>Joueur</th>
+				<th>Score</th>
+				<th>Date et heure</th>
+				<th>Concours</th>
+			</tr>
+		</table>
+	</div>
+</div>
+
+<div id="concours-scores">
+	<div class="wrapper default-margin">
+		<h3>Meilleurs scores du concours</h3>
+		<p>Un concours est en cours sur ce jeu, voici les meilleurs scores actuels :</p>
+		<table class="table-scores">
+			<tr>
+				<th>Joueur</th>
+				<th>Score</th>
+				<th>Date et heure</th>
+			</tr>
+		</table>
+	</div>
+</div>

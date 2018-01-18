@@ -1,0 +1,96 @@
+<script type="text/javascript">
+	var postContest = {{postContest}};
+
+	var registerButton;
+
+	var registerName;
+	var registerEmail;
+	var registerPwd;
+	var registerPwdConf;
+
+	var postalFName;
+	var postalLName;
+	var postalAdd;
+	var postalAdd2;
+	var postalCode;
+	var postalCity;
+	var postalPhone;
+
+	function postLoad(){
+		registerName = document.querySelector("#register_name");
+		registerEmail = document.querySelector("#register_email");
+		registerPwd = document.querySelector("#register_pwd");
+		registerPwdConf = document.querySelector("#register_pwd2");
+
+		postalFName = document.querySelector("#postal_firstName");
+		postalLName = document.querySelector("#postal_lastName");
+		postalAdd = document.querySelector("#postal_address");
+		postalAdd2 = document.querySelector("#postal_address2");
+		postalCode = document.querySelector("#postal_postalCode");
+		postalCity = document.querySelector("#postal_city");
+		postalPhone = document.querySelector("#postal_phone");
+
+		registerButton = document.querySelector("#postal_submit");
+		registerButton.onclick = function(e){
+			e.preventDefault();
+
+			if(postContest != null && postContest != false && (
+				postalFName.value == ""
+				|| postalLName.value == ""
+				|| postalAdd.value == ""
+				|| postalCode.value == ""
+				|| postalCity.value == ""
+			)){
+				popup("Vous devez entrez votre prénom et nom, ainsi que votre adresse postale pour pouvoir participer au concours et éventuellement recevoir les lots !", function(){});
+			}
+			else{
+				socket.emit('inscription', JSON.stringify({
+					postContest: postContest,
+					email: registerEmail.value,
+					name: registerName.value,
+					pwd: registerPwd.value,
+					pwdConf: registerPwdConf.value,
+					fName: postalFName.value,
+					lName: postalLName.value,
+					addr: postalAdd.value,
+					addr2: postalAdd2.value,
+					pCode: postalCode.value,
+					city: postalCity.value,
+					phone: postalPhone.value
+				}));
+			}
+		}
+	};
+
+	function postConnect(){
+
+	};
+</script>
+
+<h3>S'inscrire à notre site</h3>
+<p>Jouez avec nous sur buzzzoom.games !</p>
+<p>Jouer à nos jeux reste gratuit jusqu'à un certain point. Pour profiter pleinement de nos jeux et recevoir plus de crédits, ouvrez tout de suite un compte buzzzoom !</p>
+<p>Il est nécessaire d'ouvrir un compte buzzzoom pour pouvoir participer aux concours du site. À noter qu'entrer son adresse postale n'est pas nécessaire pour jouer à nos jeux. Elle est toutefois nécessaire si vous voulez participer à un concours.</p>
+
+<form id="register" class="col100w">
+	<table class="col100w">
+		<tbody class="col100w">
+			<tr class="col100w"><td class="sCol33w"><label class="bold">Pseudo :<span class="aparte">*</span> </label></td><td colspan="2"><input id="register_name" type="text"/></td></tr>
+			<tr class="col100w"><td class="sCol33w"><label class="bold">Email :<span class="aparte">*</span> </label></td><td colspan="2"><input id="register_email" type="email"/></td></tr>
+			<tr class="col100w"><td class="sCol33w"><label class="bold">Mot de passe et confirmation :<span class="aparte">*</span> </label></td><td colspan="2"><input id="register_pwd" type="password"/><input id="register_pwd2" type="password"/></td></tr>
+			<tr class="col100w"><td>&nbsp;</td><td></td><td></td></tr>
+			<tr class="col100w"><td class="sCol33w"><label>Prénom et nom :<span class="aparte">**</span> </label></td><td colspan="2"><input id="postal_firstName" type="text"/><input id="postal_lastName" type="text"/></td></tr>
+			<tr class="col100w"><td>&nbsp;</td><td></td><td></td></tr>
+			<tr class="col100w"><td class="sCol33w"><label>Adresse :<span class="aparte">**</span> </label></td><td colspan="2"><input id="postal_address" type="text"/></td></tr>
+			<tr class="col100w"><td></td><td colspan="2"><input id="postal_address2" type="text"/></td></tr>
+			<tr class="col100w"><td class="sCol33w">Code postal :<span class="aparte">**</span> </td><td colspan="2"><input id="postal_postalCode" type="text"/></td></tr>
+			<tr class="col100w"><td class="sCol33w">Ville :<span class="aparte">**</span> </td><td colspan="2"><input id="postal_city" type="text"/></td></tr>
+			<tr class="col100w"><td class="sCol33w">Pays :<span class="aparte">**</span> </td><td>France</td><td></td></tr>
+			<tr class="col100w"><td>&nbsp;</td><td></td><td></td></tr>
+			<tr class="col100w"><td class="sCol33w">Téléphone : </td><td colspan="2"><input id="postal_phone" type="text"/></td></tr>
+			<tr class="col100w"><td>&nbsp;</td><td></td><td></td></tr>
+			<tr class="col100w"><td class="sCol33w"><span class="aparte">* Champ obligatoire</span></td><td></td><td></td></tr>
+			<tr class="col100w"><td class="sCol33w"><span class="aparte">** Les champs notés par ces astérisques ne sont pas nécessaires à l'inscription mais le seront pour pouvoir participer à un concours.</span></td><td></td><td><input id="postal_submit" type="submit" value="Inscription"/></td></tr>
+		</tbody>
+	</table>
+</form>

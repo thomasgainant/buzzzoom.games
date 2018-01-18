@@ -1,0 +1,99 @@
+<script type="text/javascript">
+	{{lastContest}}
+
+	{{games}}
+
+	{{nextContests}}
+
+	function postLoad(){
+		//Concours actuel
+		var concoursActuelElement = document.querySelector("#concours-actuel .concours");
+
+		var links = concoursActuelElement.querySelectorAll(".contest-link");
+		for(var i = 0; i < links.length; i++){
+			links[i].setAttribute("href", "concours/"+lastContest.shortName);
+		}
+		concoursActuelElement.querySelector(".contest-link img").setAttribute("src", "img/"+lastContest.img);
+
+		concoursActuelElement.querySelector(".descr h3").innerHTML = ""+lastContest.title;
+		concoursActuelElement.querySelector(".descr .description").innerHTML = ""+lastContest.description;
+
+		concoursActuelElement.querySelector(".encart a").setAttribute("href", "jeu/"+lastContest.gameShortName);
+		concoursActuelElement.querySelector(".encart a h3").innerHTML = "Jouez à "+lastContest.gameTitle+" pour participer";
+		concoursActuelElement.querySelector(".encart a img").setAttribute("src", "img/"+lastContest.gameShortName+".png");
+		var diff = lastContest.end - new Date();
+		var diffDays = diff/(24*60*60*1000);
+		var diffHours = (diff - diffDays)/(60*60*1000);
+		var diffMinutes = (diff - diffDays - diffHours)/(60*1000);
+		var diffSeconds = (diff - diffDays - diffHours - diffMinutes)/(1000);
+		concoursActuelElement.querySelector(".encart a .timeleft").innerHTML = "Plus que "+diffDays+"j, "+diffHours+"h, "+diffMinutes+"m, "+diffSeconds+" pour participer !";
+
+		//Prochains concours
+		var nextContestsElement = document.querySelector("#prochains-concours .wrapper");
+		nextContestsElement.innerHTML = "";
+		for(var i = 0; i < nextContests.length; i++){
+			var contestAsStr = "<div class=\"concours\"><img src=\"img/"+nextContests[i].medias+"\"/><h3>"+nextContests[i].title+"</h3><br/><a href=\"/concours/"+nextContests[i].shortName+"\" class=\"button\">Voir le concours</a><br/><br/></div>";
+			nextContestsElement.innerHTML += contestAsStr;
+		}
+
+		//Jeux
+		var latestGamesElement = document.querySelector("#jeux .jeux-mosaique");
+		latestGamesElement.innerHTML = "";
+		for(var i = 0; i < latestGames.length; i++){
+			var gameAsStr = "<div class=\"jeu\"><a href=\"/jeu/"+latestGames[i].shortName+"\"><img src=\"img/"+latestGames[i].shortName+".png\"/><h3>"+latestGames[i].name+"</h3></a></div>";
+			latestGamesElement.innerHTML += gameAsStr;
+		}
+	};
+
+	function postConnect(){
+
+	};
+
+	function displayNextContest(contest){
+
+	}
+</script>
+
+<div id="concours-actuel" class="col75">
+	<div class="wrapper default-margin">
+		<h2 class="titre">Concours du moment</h2>
+		<div class="concours">
+			<a href="concours/" class="contest-link block"><img src="img/"/></a>
+			<div class="descr">
+				<h3></h3>
+				<div class="description"></div>
+				<a href="concours/" class="contest-link button">Participer au concours</a><br/>
+				<p class="aparte">Jeu gratuit sans obligation d'achat.<br/>Participation limitée à un seul foyer établi en France Métropolitaine, identifié par adresse postale.</p>
+			</div>
+			<aside class="encart">
+				<a href="/jeu/">
+					<h3></h3>
+					<img src="img/"/>
+					<p class="timeleft"></p>
+				</a>
+			</aside>
+		</div>
+	</div>
+</div><div id="prochains-concours" class="col25">
+	<div class="wrapper default-margin">
+		<h2 class="titre">Nos prochains concours</h2>
+	</div>
+</div><div id="jeux" class="col50">
+	<div class="wrapper default-margin">
+		<h2 class="titre">Nos derniers jeux</h2>
+		<div class="jeux-mosaique">
+			
+		</div>
+	</div>
+</div><div id="actualites" class="col50">
+	<div class="wrapper default-margin">
+		<h2 class="titre">Actualités</h2>
+		<div class="actualite">
+			<h3>Ouverture de buzzzoom.games</h3>
+			<p class="aparte">Posté le 29/01/2017 à 8h00</p>
+			<p>Et voici l'ouverture de buzzzoom actée !</p>
+			<p>Pour le premier concours de notre site, nous proposons au gagnant un chèque cadeau de 20€ valable dans toutes les Culturas de France !</p>
+			<p>La semaine prochaine, ce sera une carte cadeau de 30€ valable dans toutes les FNACs ! N'hésitez pas à vous entrainer pour gagner !</p>
+		</div>
+	</div>
+</div>

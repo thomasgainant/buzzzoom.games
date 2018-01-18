@@ -1,0 +1,87 @@
+html
+	head
+		title= title
+	body
+		h1= message
+
+		form#connexion
+			input#connexion-login(type='text')
+			input#connexion-pwd(type='password')
+			input#connexion-submit(type='submit',value='Connexion')
+
+		form#inscription
+			input#email(type='text')
+			input#name(type='text')
+			input#pwd(type='password')
+			input#pwdConf(type='password')
+			input(type='submit',value='Inscription')
+
+		form#deconnexion
+			input(type='submit',value='Déconnexion')
+
+		script(src=serverUrl+"/socket.io/socket.io.js")
+		script.
+			var socket = io.connect(""+"#{serverUrl}");
+			socket.on('connexion', function(message) {
+				//alert('Le serveur a un message pour vous : ' + message);
+				var data = JSON.parse(message);
+				socket.userId = ""+data.userId;
+				socket.userPwd = ""+data.pwd;
+				console.log(socket.userId+"/"+socket.userPwd);
+			});
+
+			socket.on('Error', function(message) {
+				alert('Le serveur a un message pour vous : ' + message);
+			});
+
+			//Connexion
+			var loginInput;
+			var pwdInput;
+			var submitInput;
+
+			//Inscription
+			var registerEmail;
+			var registerName;
+			var registerPwd;
+			var registerPwdConf;
+			var registerButton;
+
+			//Deconnexion
+			var deconnexionButton;
+
+			window.onload = function(){
+				loginInput = document.querySelector("#connexion-login");
+				pwdInput = document.querySelector("#connexion-pwd");
+				submitInput = document.querySelector("#connexion-submit");
+
+				registerEmail = document.querySelector("#inscription #email");
+				registerName = document.querySelector("#inscription #name");
+				registerPwd = document.querySelector("#inscription #pwd");
+				registerPwdConf = document.querySelector("#inscription #pwdConf");
+				registerButton = document.querySelector("#inscription input[type=\"submit\"]");
+
+				deconnexionButton = document.querySelector("#deconnexion input");
+
+				submitInput.onclick = function(e){
+					e.preventDefault();
+					socket.emit('connexion', JSON.stringify({login: ""+loginInput.value, pwd: ""+pwdInput.value}));
+				};
+
+				registerButton.onclick = function(e){
+					e.preventDefault();
+					var dataRaw = JSON.stringify(
+					{
+						email: ""+registerEmail.value,
+						name: ""+registerName.value,
+						pwd: ""+registerPwd.value,
+						pwdConf: ""+registerPwdConf.value
+					});
+					socket.emit('inscription', ""+dataRaw);
+				}
+
+				deconnexionButton.onclick = function(e){
+					e.preventDefault();
+					socket.emit('deconnexion', ""+socket.userId);
+					socket.userId = "";
+				};
+			};

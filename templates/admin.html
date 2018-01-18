@@ -1,0 +1,31 @@
+<script type="text/javascript">
+	{{contests}}
+
+	{{games}}
+
+	function postLoad(){
+		var concoursElement = document.querySelector("#concours");
+		for(var i = 0; i < contests.length; i++){
+			concoursElement.innerHTML += "<tr><td>"+contests[i].id+"</td><td>"+contests[i].title+"</td><td>"+contests[i].shortName+"</td><td>"+contests[i].description+"</td><td>"+contests[i].prizeDescription+"</td><td>"+contests[i].medias+"</td><td>"+contests[i].gameShortName+"</td><td>"+new Date(contests[i].start)+"</td><td>"+new Date(contests[i].end)+"</td><td>"+contests[i].status+"</td></tr>";
+		}
+
+		var jeuxElement = document.querySelector("#jeux");
+		for(var i = 0; i < games.length; i++){
+			jeuxElement.innerHTML += "<tr><td>"+games[i].id+"</td><td>"+games[i].shortName+"</td><td>"+games[i].name+"</td><td>"+games[i].code+"</td><td>"+games[i].description+"</td><td>"+games[i].scoreType+"</td><td>"+games[i].dateCreated+"</td><td>"+games[i].status+"</td></tr>";
+		}
+	};
+
+	function postConnect(){
+
+	};
+</script>
+
+<h3>Concours</h3>
+<table id="concours">
+	<tr><th>#</th><th>title</th><th>shortName</th><th>description</th><th>prizeDescription</th><th>medias</th><th>gameShortName</th><th>start</th><th>end</th><th>status</th></tr>
+</table>
+
+<h3>Jeux</h3>
+<table id="jeux">
+	<tr><th>#</th><th>shortName</th><th>name</th><th>code</th><th>description</th><th>scoreType</th><th>dateCreated</th><th>status</th></tr>
+</table>

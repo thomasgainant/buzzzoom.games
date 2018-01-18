@@ -1,0 +1,617 @@
+html{
+	margin: 0;
+	padding: 0;
+	
+	height: 100%;
+	width: 100%;
+}
+
+body{
+	margin: 0;
+	padding: 0;
+	
+	height: 100%;
+	width: 100%;
+	
+	font-family: 'Dosis', sans-serif;
+	font-size: 1em;
+}
+
+a{
+	color: #954F46;
+	text-decoration: underline;
+	font-weight: bold;
+}
+a:hover{
+	color: #bc756b;
+	text-decoration: none;
+}
+
+h1, h2, h3{
+	margin: 0;
+	padding: 0;
+}
+
+h1{
+	font-size: 3em;
+}
+
+h2{
+	font-size: 2em;
+}
+
+h3{
+	font-size: 1.5em;
+}
+
+input[type="text"], input[type="email"], input[type="password"]{
+	margin: 5px;
+	padding: 5px;
+
+	border: 1px solid #111;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-moz-box-shadow: 0px 0px 5px 0px #333;
+	-webkit-box-shadow: 0px 0px 5px 0px #333;
+	-o-box-shadow: 0px 0px 5px 0px #333;
+	box-shadow: 0px 0px 5px 0px #333;
+	filter:progid:DXImageTransform.Microsoft.Shadow(color=#333, Direction=NaN, Strength=5);
+
+	font-family: Courier;
+	font-size: 1.1em;
+}
+
+input[type="submit"], .button{
+	padding: 10px;
+
+	border: 1px solid #111;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background: #a7584e; /* Old browsers */
+	background: -moz-linear-gradient(top,  #a7584e 0%, #723e37 95%, #723e37 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top,  #a7584e 0%,#723e37 95%,#723e37 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom,  #a7584e 0%,#723e37 95%,#723e37 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a7584e', endColorstr='#723e37',GradientType=0 ); /* IE6-9 */
+
+	color: #eee;
+	font-size: 1.1em;
+	text-decoration: none;
+}
+input[type="submit"]:hover, .button:hover{
+	background: #a7584e;
+	color: #eee;
+}
+
+table{
+	border-collapse: collapse;
+}
+
+	table tbody{
+
+	}
+
+		table tbody tr{
+
+		}
+
+			table tbody tr td{
+				word-wrap: break-word;
+			}
+
+.button{
+	display: inline-block;
+}
+
+.col100{
+	margin: 0;
+	padding: 0;
+	
+	display: inline-block;
+	max-width: 100%;
+	overflow-x: hidden;
+	vertical-align: top;
+}
+
+.col100w{
+	width: 100%;
+}
+
+.col75{
+	margin: 0;
+	padding: 0;
+	
+	display: inline-block;
+	max-width: 75%;
+	overflow-x: hidden;
+	vertical-align: top;
+}
+
+.col50{
+	margin: 0;
+	padding: 0;
+	
+	display: inline-block;
+	max-width: 50%;
+	overflow-x: hidden;
+	vertical-align: top;
+}
+
+.sCol33w{
+	width: 33%;
+}
+
+.col25{
+	margin: 0;
+	padding: 0;
+	
+	display: inline-block;
+	max-width: 25%;
+	overflow-x: hidden;
+	vertical-align: top;
+}
+
+.col100 img, .col75 img, .col50 img, .col25 img{
+	max-width: 100%;
+	/*height: auto;*/
+}
+
+.default-padding{
+	padding: 1em;
+}
+
+.default-margin{
+	margin: 1em;
+}
+
+.default-border{
+	border: 1px #111 solid;
+}
+
+.wrapper{
+	display: block;
+}
+
+.block{
+	display: block;
+}
+
+.bold{
+	font-weight: bold;
+}
+
+.aparte{
+	font-style: italic;
+	font-size: 0.9em;
+}
+
+.titre{
+	padding: 5px;
+
+	background: #a7584e;
+	color: #eee;
+}
+
+.jeux-mosaique{
+	padding: 15px;
+
+	background: #eee;
+	color: #111;
+}
+
+	.jeux-mosaique .jeu{
+		display: inline-block;
+		max-width: 15%;
+		vertical-align: top;
+	}
+
+		.jeux-mosaique .jeu a{
+			display: block;
+			width: 100%;
+		}
+
+			.jeux-mosaique .jeu a h3{
+
+			}
+
+			.jeux-mosaique .jeu a img{
+				width: 100%;
+				height: auto;
+			}
+
+.concours-lines{
+
+}
+
+	.concours-lines .concours{
+		background: #eee;
+	}
+
+		.concours-lines .concours a{
+			display: block;
+		}
+
+			.concours-lines .concours a .image{
+
+			}
+
+				.concours-lines .concours a .image .wrapper img{
+					display: inline-block;
+				}
+
+					.concours-lines .concours a .image .wrapper img{
+						border: 1px #111 dotted;
+					}
+
+			.concours-lines .concours a .description{
+				display: inline-block;
+			}
+
+				.concours-lines .concours a .description h3{
+
+				}
+
+				.concours-lines .concours a .description p{
+					color: #111;
+				}
+
+.popup{
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 999;
+
+	background: rgba(128, 128, 128, 0.75);
+	text-align: center;
+	/*-webkit-transition: opacity 500ms ease-in;
+	-moz-transition: opacity 500ms ease-in;
+	-ms-transition: opacity 500ms ease-in;
+	-o-transition: opacity 500ms ease-in;
+	transition: opacity 500ms ease-in;
+	opacity: 0.0;*/
+}
+
+	.popup .popup-content{
+		margin: 0 auto;
+
+		display: inline-block;
+		vertical-align: middle;
+		max-width: 75%;
+
+		background: #eee;
+		text-align: left;
+		-webkit-border-radius: 5px;
+		-moz-border-radius: 5px;
+		border-radius: 5px;
+		-moz-box-shadow: 0px 0px 5px 0px #111;
+		-webkit-box-shadow: 0px 0px 5px 0px #111;
+		-o-box-shadow: 0px 0px 5px 0px #111;
+		box-shadow: 0px 0px 5px 0px #111;
+		/*-webkit-transition: opacity 1s ease-in;
+		-moz-transition: opacity 1s ease-in;
+		-ms-transition: opacity 1s ease-in;
+		-o-transition: opacity 1s ease-in;
+		transition: opacity 1s ease-in;*/
+		filter:progid:DXImageTransform.Microsoft.Shadow(color=#111, Direction=NaN, Strength=5);
+		/*opacity: 0.0;*/
+	}
+
+		.popup .popup-content .popup-header{
+			padding: 15px;
+
+			position: relative;
+
+			background: #a7584e;
+			color: #eee;
+		}
+
+			.popup .popup-content .popup-header .popup-close{
+				height: 20px;
+				width: 20px;
+				position: absolute;
+				top: 15px;
+				right: -5px;
+				text-align: center;
+
+				background: #eee;
+				-webkit-border-radius: 10px;
+				-moz-border-radius: 10px;
+				border-radius: 10px;
+				cursor: pointer;
+				color: #954F46;
+			}
+			.popup .popup-content .popup-header .popup-close:hover{
+				color: #bc756b;
+			}
+
+		.popup .popup-content .popup-html{
+			padding: 15px;
+		}
+
+	.popup .popup-fake{
+		margin: 0 auto;
+
+		display: inline-block;
+		vertical-align: middle;;
+		height: 100%;
+		width: 0px;
+	}
+
+.overlay{
+	display: inline-block;
+	position: absolute;
+}
+
+.hide-layer{
+	text-align: center;
+
+	background: #a7584e;
+	color: #eee;
+}
+
+#header{
+	text-align: center;
+	background-color: #a7584e;
+	/*background-color: #3d221e;*/
+	/*background-color: #60342f;*/
+}
+
+	#header h1{
+		padding-top: 0.5em;
+		padding-bottom: 0.5em;
+		
+		display: inline-block;
+		
+		font-family: 'Faster One', cursive;
+		/*color: #954F46;*/
+		color: #fff;
+		font-weight: normal;
+		font-size: 3em;
+	}
+	
+	#header small{
+		font-family: 'Dosis', sans-serif;
+	}
+	
+	#header .home-link{
+		display: block;
+	}
+	
+	#header .logo-img{
+		padding-top: 0.5em;
+		padding-bottom: 0.5em;
+		
+		max-height: 7.5em;
+		width: auto;
+		display: inline-block;
+	}
+	
+#menu{	
+	border-top: #000 solid 1px;
+	border-bottom: #000 solid 1px;
+	font-size: 1.25em;
+	background: #eee;
+}
+
+	#menu nav{
+		text-align: center;
+	}
+	
+		#menu nav a{
+			padding: 1em;
+			
+			display: inline-block;
+			
+			text-decoration: none;
+		}
+		#menu nav a:hover{
+			background: #bc756b;
+			color: #fff;
+			text-decoration: none;
+		}
+
+.credits-round{
+	padding: 5px;
+
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+
+	background: #bc756b;
+	color: #eee;
+	font-size: 1.5em;
+	font-weight: bold;
+}
+	
+#content{
+	padding-top: 15px;
+	padding-bottom: 15px;
+
+	min-height: 1000px;
+
+	background: #3e3333;
+	color: #fff;
+}
+
+	#content canvas.emscripten{
+		margin: 0 auto;
+
+		display: block;
+	}
+
+	#content #concours-actuel{			
+		
+	}
+
+		#content #concours-actuel .wrapper{			
+			
+		}
+	
+		#content #concours-actuel .concours{
+			margin-top: 1em;
+			padding: 5px;
+			
+			position: relative;
+			
+			background: #eee;
+			color: #111;
+			border: 1px solid #111;
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+			border-radius: 5px;
+			-moz-box-shadow: 10px 10px 5px 0px #333;
+			-webkit-box-shadow: 10px 10px 5px 0px #333;
+			-o-box-shadow: 10px 10px 5px 0px #333;
+			box-shadow: 10px 10px 5px 0px #333;
+			filter:progid:DXImageTransform.Microsoft.Shadow(color=#333, Direction=134, Strength=5);
+		}
+		
+			#content #concours-actuel .concours .descr{
+				max-width: 60%;
+			}
+			
+			#content #concours-actuel .concours .encart{
+				padding: 15px;
+
+				position: absolute;
+				bottom: 0px;
+				right: 0px;			
+				max-width: 25%;
+				
+				background-color: #a7584e;
+				color: #eee;
+				border-top: 1px solid #111;
+				border-left: 1px solid #111;
+				-webkit-border-top-left-radius: 15px;
+				-moz-border-radius-topleft: 15px;
+				border-top-left-radius: 15px;
+			}
+
+				#content #concours-actuel .concours .encart a{
+					display: block;
+
+					color: #eee;
+					text-decoration: none;
+				}
+				#content #concours-actuel .concours .encart a:hover{
+					color: #723e37;
+				}
+			
+					#content #concours-actuel .concours .encart a img{
+						
+					}
+	
+	#content #prochains-concours{
+		
+	}
+	
+		#content #prochains-concours .concours{
+			margin-top: 1em;
+			padding: 5px;
+			
+			background: #eee;
+			color: #111;
+			border: 1px solid #111;
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+			border-radius: 5px;
+			-moz-box-shadow: 10px 10px 5px 0px #333;
+			-webkit-box-shadow: 10px 10px 5px 0px #333;
+			-o-box-shadow: 10px 10px 5px 0px #333;
+			box-shadow: 10px 10px 5px 0px #333;
+			filter:progid:DXImageTransform.Microsoft.Shadow(color=#333, Direction=134, Strength=5);
+		}
+		
+			#content #prochains-concours .concours img{
+				
+			}
+
+	#content #jeux{
+
+	}
+
+		#content #jeux .wrapper{
+
+		}
+
+	#content #actualites{
+
+	}
+
+		#content #actualites .wrapper{
+			background: #eee;
+			color: #111;
+		}
+
+			#content #actualites .wrapper .actualite{
+				padding: 5px;
+			}
+
+	#content #concours-single{
+
+	}
+
+		#content #concours-single #medias{
+
+		}
+
+		#content #concours-single #description{
+
+		}
+
+		#content #concours-single #jeu{
+
+		}
+
+		#content #concours-single #lots{
+
+		}
+
+		#content #concours-single #score{
+
+		}
+
+#footer{
+	padding: 1em;
+	
+	text-align: center;
+	
+	background: #111;
+	color: #eee;
+}
+
+@media screen and (max-width: 750px) {
+
+	.col100{
+		display: block;
+		max-width: none;
+	}
+
+	.col100w{
+		width: auto;
+	}
+
+	.col75{
+		display: block;
+		max-width: none;
+	}
+
+	.col50{
+		display: block;
+		max-width: none;
+	}
+
+	.col25{
+		display: block;
+		max-width: none;
+	}
+
+	.col100 img, .col75 img, .col50 img, .col25 img{
+		/*max-width: 100%;*/
+		/*height: auto;*/
+	}
+
+}

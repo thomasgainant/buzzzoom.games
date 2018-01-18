@@ -1,0 +1,193 @@
+<script type="text/javascript">
+	function postLoad(){
+		
+	};
+
+	var profileTitle;
+	var profileStatus;
+	var profileCreditsAmount;
+	var profileCreditsBuyButton;
+	//var creditsBuyPopup;
+	var creditsBuyForm1;
+	var creditsBuyForm2;
+	var creditsBuyForm3;
+	var profileContactEmail;
+
+	var postalFName;
+	var postalLName;
+	var postalAdd;
+	var postalAdd2;
+	var postalCode;
+	var postalCity;
+	var postalPhone;
+
+	var postalButton;
+
+	var chPwdOld;
+	var chPwd;
+	var chPwd2;
+
+	var chPwdButton;
+
+	function postConnect(){
+		profileTitle = document.querySelector(".profileTitle");
+		profileTitle.innerHTML = socket.userName;
+
+		profileStatus = document.querySelector(".profileStatus");
+		profileStatus.innerHTML = socket.userStatus;
+
+		profileCreditsAmount = document.querySelector(".profileCreditsAmount");
+		profileCreditsAmount.innerHTML = socket.userCredits;
+		profileCreditsBuyButton = document.querySelector(".profileCreditsBuyButton");
+
+		//Paiement désactivé
+		/*creditsBuyForm1 = document.querySelector(".buy1");
+		var userNameInput1 = creditsBuyForm1.querySelector(".userName");
+		userNameInput1.value = socket.userName;
+
+		creditsBuyForm2 = document.querySelector(".buy2");
+		var userNameInput2 = creditsBuyForm2.querySelector(".userName");
+		userNameInput2.value = socket.userName;
+
+		creditsBuyForm3 = document.querySelector(".buy3");
+		var userNameInput3 = creditsBuyForm3.querySelector(".userName");
+		userNameInput3.value = socket.userName;
+
+		profileContactEmail = document.querySelector(".profileContactEmail");
+		profileContactEmail.innerHTML = socket.userEmail;
+
+		socket.on('paymentResponse', function(message) {
+			var data = JSON.parse(message);
+
+			//socket.userEmail = data.email;
+			//console.log(message);
+		});*/
+
+		//Postal
+		postalFName = document.querySelector("#postal_firstName");
+		postalFName.value = socket.userFName;
+		postalLName = document.querySelector("#postal_lastName");
+		postalLName.value = socket.userLName;
+		postalAdd = document.querySelector("#postal_address");
+		postalAdd.value = socket.userAddr;
+		postalAdd2 = document.querySelector("#postal_address2");
+		postalAdd2.value = socket.userAddr2;
+		postalCode = document.querySelector("#postal_postalCode");
+		postalCode.value = socket.userPCode;
+		postalCity = document.querySelector("#postal_city");
+		postalCity.value = socket.userCity;
+		postalPhone = document.querySelector("#postal_phone");
+		postalPhone.value = socket.userPhone;
+
+		postalButton = document.querySelector("#postal_submit");
+		postalButton.onclick = function(e){
+			e.preventDefault();
+
+			socket.emit('changementAdresse', JSON.stringify({
+				userName: socket.userName,
+				pwd: socket.userPwd,
+				fName: postalFName.value,
+				lName: postalLName.value,
+				addr: postalAdd.value,
+				addr2: postalAdd2.value,
+				pCode: postalCode.value,
+				city: postalCity.value,
+				phone: postalPhone.value
+			}));
+		}
+
+		chPwdOld = document.querySelector("#chpwd_old");
+		chPwd = document.querySelector("#chpwd_new");
+		chPwd2 = document.querySelector("#chpwd_new2");
+
+		chPwdButton = document.querySelector("#chpwd_submit");
+		chPwdButton.onclick = function(e){
+			e.preventDefault();
+
+			socket.emit('changementMotdePasse', JSON.stringify({
+				userName: socket.userName,
+				pwd: socket.userPwd,
+				old: chPwdOld.value,
+				new: chPwd.value,
+				new2: chPwd2.value
+			}));
+
+			chPwdOld.value = "";
+			chPwd.value = "";
+			chPwd2.value = "";
+		}
+	};
+</script>
+
+	
+<h2 class="profileTitle"></h2>
+<p class="profileStatus"></p><a class="disconnect button" href="/">Déconnexion</a>
+
+<h3>Crédits</h3>
+<p class="profileCreditsAmount"></p>
+	<h4>Obtenir plus de crédits</h4>
+	<p class="aparte">L'achat et le rachat de crédits est interdit sur notre site pour des raisons légales : la France interdit un sacrifice financier de la part du joueur pour qu'un jeu offrant des lots soit légal. Plus d'infos sur la <a href="/faq#achat-credits">FAQ</a>.</p>
+	<div id="watch-ad">
+	</div>
+	<div id="fill-form">
+	</div>
+	<div id="share-fb">
+	</div>
+<!--<table>
+	<tr>
+		<td>10 crédits pour 4,99€</td>
+		<td>50 crédits pour 19,99€</td>
+		<td>150 crédits pour 49,99€</td>
+	</tr>
+	<tr>
+		<td><form class="buy1" action="/paiement" method="POST">
+		<script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_o4p85zDvdnUPSSJ5IUqqPyx9" data-amount="499" data-name="Altitude" data-description="Widget" data-image="https://stripe.com/img/documentation/checkout/marketplace.png" data-locale="auto" data-currency="eur"></script>
+		<input class="userName" name="userName" type="hidden" value=""/>
+		<input class="packId" name="packId" type="hidden" value="1"/>
+	</form></td>
+		<td><form class="buy2" action="/paiement" method="POST">
+		<script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_o4p85zDvdnUPSSJ5IUqqPyx9" data-amount="499" data-name="Altitude" data-description="Widget" data-image="https://stripe.com/img/documentation/checkout/marketplace.png" data-locale="auto" data-currency="eur"></script>
+		<input class="userName" name="userName" type="hidden" value=""/>
+		<input class="packId" name="packId" type="hidden" value="2"/>
+	</form></td>
+		<td><form class="buy3" action="/paiement" method="POST">
+		<script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_o4p85zDvdnUPSSJ5IUqqPyx9" data-amount="499" data-name="Altitude" data-description="Widget" data-image="https://stripe.com/img/documentation/checkout/marketplace.png" data-locale="auto" data-currency="eur"></script>
+		<input class="userName" name="userName" type="hidden" value=""/>
+		<input class="packId" name="packId" type="hidden" value="3"/>
+	</form></td>
+	</tr>
+</table>-->
+<!--<a class="profileCreditsBuyButton" href="/profil">Acheter des crédits</a>-->
+
+<h3>Informations de contacts</h3>
+<form class="col100w">
+	<table class="col100w">
+		<tbody class="col100w">
+			<tr class="col100w"><td class="sCol33w">Email : </td><td colspan="2"><p class="profileContactEmail"></p></td></tr>
+			<tr class="col100w"><td class="sCol33w"><label>Prénom et nom :<span class="aparte">**</span> </label></td><td colspan="2"><input id="postal_firstName" type="text"/><input id="postal_lastName" type="text"/></td></tr>
+			<tr class="col100w"><td>&nbsp;</td><td></td><td></td></tr>
+			<tr class="col100w"><td class="sCol33w"><label>Adresse :<span class="aparte">**</span> </label></td><td colspan="2"><input id="postal_address" type="text"/></td></tr>
+			<tr class="col100w"><td></td><td colspan="2"><input id="postal_address2" type="text"/></td></tr>
+			<tr class="col100w"><td class="sCol33w">Code postal :<span class="aparte">**</span> </td><td colspan="2"><input id="postal_postalCode" type="text"/></td></tr>
+			<tr class="col100w"><td class="sCol33w">Ville :<span class="aparte">**</span> </td><td colspan="2"><input id="postal_city" type="text"/></td></tr>
+			<tr class="col100w"><td class="sCol33w">Pays :<span class="aparte">**</span> </td><td>France</td><td></td></tr>
+			<tr class="col100w"><td>&nbsp;</td><td></td><td></td></tr>
+			<tr class="col100w"><td class="sCol33w">Téléphone : </td><td colspan="2"><input id="postal_phone" type="text"/></td></tr>
+			<tr class="col100w"><td>&nbsp;</td><td></td><td></td></tr>
+			<tr class="col100w"><td class="sCol33w"><span class="aparte">** Les champs notés par ces astérisques ne sont pas nécessaires à l'inscription mais le seront pour pouvoir participer à un concours.</span></td><td></td><td><input id="postal_submit" type="submit" value="Enregistrer"/></td></tr>
+		</tbody>
+	</table>
+</form>
+
+<h3>Changement de mot de passe</h3>
+<form class="col100w">
+	<table class="col100w">
+		<tbody class="col100w">
+			<tr class="col100w"><td class="sCol33w">Mot de passe actuel : </td><td colspan="2"><input id="chpwd_old" type="password"/></td></tr>
+			<tr class="col100w"><td>&nbsp;</td><td></td><td></td></tr>
+			<tr class="col100w"><td class="sCol33w">Nouveau mot de passe et confirmation : </td><td colspan="2"><input id="chpwd_new" type="password"/><input id="chpwd_new2" type="password"/></td></tr>
+			<tr class="col100w"><td>&nbsp;</td><td></td><td></td></tr>
+			<tr class="col100w"><td class="sCol33w">&nbsp;</td><td></td><td><input id="chpwd_submit" type="submit" value="Changer de mot de passe"/></td></tr>
+		</tbody>
+	</table>
+</form>

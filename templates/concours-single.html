@@ -1,0 +1,97 @@
+<script type="text/javascript">
+	{{contest}}
+
+	{{game}}
+
+	var scores = [{{scores}}];
+
+	function postLoad(){
+		var mediasElement = document.querySelector("#medias");
+		var imgMedia = mediasElement.querySelector("img");
+		imgMedia.setAttribute("src", "/img/"+contest.img);
+
+		var decompteElement = document.querySelector("#decompte");
+		var endDate = new Date(contest.start);
+		var endDateStr = endDate.getDate()+"/"+(endDate.getMonth()+1)+"/"+endDate.getFullYear()+" à "+(endDate.getHours()-1)+":"+endDate.getMinutes()+":"+endDate.getSeconds();
+		decompteElement.innerHTML = "Ce concours finit le "+endDateStr;
+
+		var descriptionElement = document.querySelector("#description");
+		var titleDescription = descriptionElement.querySelector("h3");
+		titleDescription.innerHTML = contest.title;
+		var description = descriptionElement.querySelector("p");
+		var startDate = new Date(contest.start);
+		var startDateStr = startDate.getDate()+"/"+(startDate.getMonth()+1)+"/"+startDate.getFullYear()+" à "+(startDate.getHours()-1)+":"+startDate.getMinutes()+":"+startDate.getSeconds();
+		description.innerHTML = "<p class=\"aparte\">Ce concours débute le "+startDateStr+"</p>"+contest.description;
+
+		var jeuElement = document.querySelector("#jeu");
+		var titleJeu = jeuElement.querySelector("h3");
+		titleJeu.innerHTML = game.name;
+		var imageJeu = jeuElement.querySelector("img");
+		imageJeu.src = "/img/"+game.shortName+".png";
+		var buttonJeu = jeuElement.querySelector(".button");
+		buttonJeu.href = "/jeu/"+game.shortName;
+		console.log(contest.start+"/"+new Date());
+		if(contest.start > new Date()){
+			buttonJeu.innerHTML = "S'entrainer avant le concours";
+		}
+		var descriptionJeu = jeuElement.querySelector("div.description");
+		descriptionJeu.innerHTML = game.description;
+
+		var lotsElement = document.querySelector("#lots");
+		var prizeDescription = lotsElement.querySelector("div.content");
+		prizeDescription.innerHTML = contest.prizeDescription;
+
+		var scoresElement = document.querySelector("#scores");
+		var tableScores = scoresElement.querySelector(".table-scores");
+		if(scores.length == 0){
+			tableScores.innerHTML += "<tr><td>-</td><td>-</td><td>-</td></tr>";
+		}
+		else{
+			for(var i = 0; i < scores.length && i < 100; i++){
+				var scoreDate = new Date(scores[i].dateCreated);
+				var scoreDateStr = scoreDate.getDate()+"/"+(scoreDate.getMonth()+1)+"/"+scoreDate.getFullYear()+" "+scoreDate.getHours()+":"+scoreDate.getMinutes()+":"+scoreDate.getSeconds();
+				tableScores.innerHTML += "<tr><td>"+scores[i].playerName+"</td><td>"+scores[i].value+"</td><td>"+scoreDateStr+"</td></tr>";
+			}
+		}
+	};
+
+	function postConnect(){
+
+	};
+</script>
+
+<div id="concours-single" class="col100w">
+	<div id="medias" class="col75">
+		<div class="wrapper default-margin">
+			<img src="" class="col100"/>
+		</div>
+	</div><div id="jeu" class="col25">
+		<div class="wrapper default-margin">
+			<h3></h3>
+			<img src=""/>
+			<div class="description"></div>
+			<a class="button" href="">Jouer pour participer au concours</a>
+		</div>
+	</div><div id="decompte"></div><div id="description" class="col75">
+		<div class="wrapper default-margin">
+			<h3></h3>
+			<p></p>
+		</div>
+	</div><div id="lots" class="col25">
+		<div class="wrapper default-margin">
+			<h3>Lots en jeu</h3>
+			<div class="content"></div>
+		</div>
+	</div><div id="scores" class="col100">
+		<div class="wrapper default-margin">
+			<h3>Meilleurs scores du concours</h3>
+			<table class="table-scores">
+				<tr>
+					<th>Joueur</th>
+					<th>Score</th>
+					<th>Date et heure</th>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>

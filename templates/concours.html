@@ -1,0 +1,52 @@
+<script type="text/javascript">
+	{{currentContests}}
+
+	{{futureContests}}
+
+	{{pastContests}}
+
+	function postLoad(){
+		var enCoursElement = document.querySelector("#concours-en-cours .concours-lines");
+		for(var i = 0; i < currentContests.length; i++){
+			enCoursElement.innerHTML += "<div class=\"concours col100w\"><a href=\"/concours/"+currentContests[i].shortName+"\"><div class=\"image col25\"><div class=\"wrapper default-margin\"><img src=\"img/"+currentContests[i].medias+"\"/></div></div><div class=\"description col75\"><div class=\"wrapper default-margin\"><h3>"+currentContests[i].title+"</h3><p>"+currentContests[i].description+"</p></div></div></a></div>";
+		}
+
+		var futursElement = document.querySelector("#concours-futurs .concours-lines");
+		for(var i = 0; i < futureContests.length; i++){
+			futursElement.innerHTML += "<div class=\"concours col100w\"><a href=\"/concours/"+futureContests[i].shortName+"\"><div class=\"image col25\"><div class=\"wrapper default-margin\"><img src=\"img/"+futureContests[i].medias+"\"/></div></div><div class=\"description col75\"><div class=\"wrapper default-margin\"><h3>"+futureContests[i].title+"</h3><p>"+futureContests[i].description+"</p></div></div></a></div>";
+		}
+
+		var passesElement = document.querySelector("#concours-passes .concours-lines");
+		for(var i = 0; i < pastContests.length; i++){
+			passesElement.innerHTML += "<div class=\"concours col100w\"><a href=\"/concours/"+pastContests[i].shortName+"\"><div class=\"image col25\"><div class=\"wrapper default-margin\"><img src=\"img/"+pastContests[i].medias+"\"/></div></div><div class=\"description col75\"><div class=\"wrapper default-margin\"><h3>"+pastContests[i].title+"</h3><p>"+pastContests[i].description+"</p></div></div></a></div>";
+		}
+	};
+
+	function postConnect(){
+
+	};
+</script>
+
+<div id="concours-en-cours" class="col50">
+	<div class="wrapper default-margin">
+		<h2 class="titre">Notre concours en cours</h2>
+		<div class="concours-lines">
+		</div>
+	</div>
+</div>
+
+<div id="concours-futurs" class="col50">
+	<div class="wrapper default-margin">
+		<h2 class="titre">Nos futurs concours</h2>
+		<div class="concours-lines">
+		</div>
+	</div>
+</div>
+
+<div id="concours-passes" class="col100 col100w">
+	<div class="wrapper default-margin">
+		<h2 class="titre">Nos concours passés</h2>
+		<div class="concours-lines">
+		</div>
+	</div>
+</div>
